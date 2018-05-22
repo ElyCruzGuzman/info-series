@@ -9,7 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Firebase from 'firebase'
 import VueFire from 'vuefire'
 import {auth} from './firebase'
-
+import './firebase.js';
 
 Vue.use(VueFire)
 Vue.use(BootstrapVue)
@@ -17,9 +17,15 @@ Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+let app;
+ auth.onAuthStateChanged(function(user) {
+  if (!app) {
+    /* eslint-disable no-new */
+    app = new Vue({
+      el: '#app',
+      router,
+      template: '<App/>',
+      components: { App }
+    });
+  }
+});

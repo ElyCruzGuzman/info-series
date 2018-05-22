@@ -10,7 +10,7 @@
 	          	<h5 class="card-title text-center">{{serie.name}}</h5>
 	        	</div>
 	        	<div>
-	        		<button type="button" class="btn btn-outline-secondary col-12">Seguir</button>
+	        		<button @click="agregarSerie" type="button" class="btn btn-outline-secondary col-12">Seguir</button>
 	        		<button type="button" class="btn btn-outline-secondary col-12">Dejar de seguir</button>
 	        	</div>
 	      	</div>  
@@ -29,10 +29,14 @@
 </template>
 
 <script>
- import {token} from '../token.js'
+  import {token} from '../token.js'
+  import { auth } from "../firebase.js";
+  import { db } from "../firebase.js";
+
+  const usersRef = db.ref('users');
 
   export default {
-	
+
   data() {
     return {
       serie: {},
@@ -56,7 +60,13 @@
     );
 
   },
-  props: ['id']
+  props: ['id'],
+  methods: {
+    agregarSerie: function(serie){
+      db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).set(true)
+      console.log(this.id)
+    }
+  }
 };
 
 </script>

@@ -4,17 +4,14 @@ import Firebase from 'firebase'
  * Pega aquí los datos de tu proyecto firebase
  */
 const firebaseApp = Firebase.initializeApp({
-    apiKey: "AIzaSyB2KfHdiDP2-rTusDL-Sj8Pfz29pPUzgo0",
-    authDomain: "mis-series-7.firebaseapp.com",
-    databaseURL: "https://mis-series-7.firebaseio.com",
-    projectId: "mis-series-7",
+    apiKey: "AIzaSyAW9McMezpeYACOe79mfLRT7i0LXLWMGO4",
+    authDomain: "info-series.firebaseapp.com",
+    databaseURL: "https://info-series.firebaseio.com",
+    projectId: "info-series",
     storageBucket: "",
-    messagingSenderId: "665941432205"
+    messagingSenderId: "793556357500"
 });
 
 export const db = firebaseApp.database()
-console.log(db)
 export const storage = firebaseApp.storage()
-console.log(storage)
 export const auth = firebaseApp.auth()
-console.log(auth)

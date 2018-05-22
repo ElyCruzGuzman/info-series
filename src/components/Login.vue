@@ -10,13 +10,13 @@
 				<div class="tab-pane active" id="login">
 					<form class="form-horizontal login-form">
 						<div class="form-group relative">
-							<input class="form-control input-lg" id="login_username" placeholder="E-mail Address" required="" type="email"> <i class="fa fa-user"></i>
+							<input v-model='email' class="form-control input-lg" id="login_username" placeholder="E-mail Address" required type="email"> <i class="fa fa-user"></i>
 						</div>
 						<div class="form-group relative">
-							<input class="form-control input-lg" id="login_password" placeholder="Password" required="" type="password"> <i class="fa fa-lock"></i>
+							<input class="form-control input-lg" id="login_password" placeholder="Password" required type="password" v-model='password'> <i class="fa fa-lock"></i>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-success btn-lg btn-block" type="submit">Login</button>
+							<button @click.prevent='login' class="btn btn-success btn-lg btn-block" type="button">Login</button>
 						</div>
             <hr />
 					</form>
@@ -27,29 +27,32 @@
 </template>
 
 <script>
-	import {auth} from '../firebase'
+import { auth } from "../firebase";
 
-	export default {
-		data(){
-				return {
-					email: '',
-					password: ''
-				};
-		},
-		methods: {
-			login(){
-				auth.signInWithEmailAndPassword(this.email,this.password)
-				.then((user)=>{
-					this.$router.push('/')
-				//enviar a página destino
-				})
-				.catch((error)=>{
-				//muestra error
-				alert(err.message);
-				})
-			}
-		}
-	}
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      errorMsg: ""
+    };
+  },
+  methods: {
+    login() {
+      auth
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(user => {
+        	alert("you are login")
+          this.$router.replace("register");
+
+        })
+        .catch(error => {
+          this.errorMsg = error.message;
+        });
+        
+    }
+  }
+};
 </script>
 
 <style>

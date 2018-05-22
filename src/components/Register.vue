@@ -29,6 +29,7 @@
 
 <script>
 import { auth } from "../firebase.js";
+import { db } from "../firebase.js";
 
 export default {
     data(){
@@ -40,7 +41,15 @@ export default {
     methods:{
         register(){
             auth.createUserWithEmailAndPassword(this.email, this.password)
-            .then((this.$router.replace("login")))
+              .then(() => {
+              	var userId = auth.currentUser.uid;
+
+              	db.ref('users/' + userId).set({
+							    email: this.email
+							  });
+
+              	this.$router.replace("login");
+              })
             .catch(function(error) {
             // Handle Errors here.
             let errorCode = error.code;
