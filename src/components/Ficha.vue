@@ -83,17 +83,22 @@
 
   },
   props: ['id'],
-  methods: {
+  methods: {  
     agregarSerie: function(serie){
-      db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).set(true)
-      console.log(this.id);
-      // (errorObject) => {
-      //   alert('Necesitas iniciar la sesión para administrar series');
-      // };
+      if(auth.currentUser){
+        db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).set(true)
+      console.log(this.id)
+    } else {
+      alert('Necesitas iniciar la sesión para administrar series')
+    }
+      
     },
     borrarSerie: function(serie){
       db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).remove()
       console.log(this.id)
+      // .catch(error => {
+      //   alert('Necesitas iniciar la sesión para administrar series')
+      // })
     }
   }
 }

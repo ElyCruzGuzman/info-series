@@ -11,13 +11,13 @@ import Firebase from 'firebase'
 
 Vue.use(Router)
 
-let router = new Router({
+var router = new Router({
 	mode: 'history',
   routes: [
-    { path: '/', name: 'Home', component: Home, meta: { requiresGuest: true } },
-    { path: '/ficha/:id', name: 'fichaLink', component: Ficha, props: true, meta: { requiresGuest: true } },
-    { path: '/login', name: 'loginLink', component: Login, meta: { requiresGuest: true } },
-    { path: '/register', name: 'registerLink', component: Register, meta: { requiresGuest: true } },
+    { path: '/', name: 'Home', component: Home },
+    { path: '/ficha/:id', name: 'fichaLink', component: Ficha, props: true },
+    { path: '/login', name: 'loginLink', component: Login },
+    { path: '/register', name: 'registerLink', component: Register },
     { path: '/mis-series', name: 'misSeriesLink', component: MisSeries, meta: { requiresAuth: true } },
 
     { path: "*", redirect: "/"}
@@ -33,20 +33,6 @@ router.beforeEach((to, from, next) => {
       // Go to login
       next({
         path: '/login',
-        query: {
-          redirect: to.fullPath
-        }
-      });
-    } else {
-      // Proceed to route
-      next();
-    }
-  } else if (to.matched.some(record => record.meta.requiresGuest)) {
-    // Check if NO logged user
-    if (Firebase.auth().currentUser) {
-      // Go to login
-      next({
-        path: '/',
         query: {
           redirect: to.fullPath
         }

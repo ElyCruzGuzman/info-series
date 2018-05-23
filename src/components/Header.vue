@@ -1,11 +1,28 @@
 <template>
-    <nav class="navbar navbar-expand-sm navbar-custom">
-        <a href="/" class="navbar-brand">Home</a>
-        <router-link :to="{name: 'loginLink'}" class="ml-2 navbar-text"><span>Login</span></router-link>
-        <router-link :to="{name: 'registerLink'}" class="ml-2 navbar-text"><span>Registrate</span></router-link>
-        <button @click="logout" type="button"class="btn btn-outline-dark ml-2">Log Out</button>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <div class="navbar-collapse collapse" id="collapsingNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a href="/" class="navbar-brand"><i class="fas fa-tv"></i></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" v-if="!isLoggedIn">
+                  <router-link :to="{name: 'loginLink'}" class="ml-2 navbar-text nav-item"><span>Login</span></router-link>  
+                </li>
+                <li class="nav-item" v-if="!isLoggedIn">
+                  <router-link :to="{name: 'registerLink'}" class="ml-2 navbar-text nav-item"><span>Registrate</span></router-link>  
+                </li>
+                <li class="nav-item" v-if="isLoggedIn">
+                  <router-link :to="{name: 'misSeriesLink'}" class="ml-2 navbar-text nav-item"><span>Mis Series</span></router-link>  
+                </li>
+                <li v-if="isLoggedIn"><span class="email black-text">{{currentUser}}</span></li>
+                <li class="nav-item">
+                  <button v-if="isLoggedIn" @click="logout" type="button"class="btn btn-outline-dark ml-2 nav-item">Log Out</button>  
+                </li>
+            </ul>
         </div>
-</nav>
+    </nav>
 </template>
 
 <script>
@@ -15,6 +32,12 @@
             return {
                 isLoggedIn: false,
                 currentUser: false
+            }
+        },
+        created(){
+            if(Firebase.auth().currentUser) {
+                this.isLoggedIn = true;
+                this.currentUser = Firebase.auth().currentUser.email
             }
         },
         methods: {
@@ -28,8 +51,8 @@
 </script>
 
 <style>
-	.navbar-custom {
-    background-color: #ff5500;
+	.navbar {
+    background-color: #ff5500 !important;
     }
 
     /* change the brand and text color */
@@ -61,4 +84,7 @@
         color: #333333;
         background-color: rgba(255,255,255,.5);
       }
+    i {
+        font-size: 30px;
+    }
 </style>

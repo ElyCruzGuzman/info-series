@@ -10,10 +10,10 @@
 				<div class="tab-pane active" id="login">
 					<form class="form-horizontal login-form">
 						<div class="form-group relative">
-							<input v-model='email' class="form-control input-lg" id="login_username" placeholder="E-mail" required type="email"> <i class="fa fa-user"></i>
+							<input v-model='email' class="form-control input-lg" id="login_username" placeholder="E-mail" required type="email">
 						</div>
 						<div class="form-group relative">
-							<input class="form-control input-lg" id="login_password" placeholder="Password" required type="password" v-model='password'> <i class="fa fa-lock"></i>
+							<input class="form-control input-lg" id="login_password" placeholder="Password" required type="password" v-model='password'> 
 						</div>
 						<div class="form-group">
 							<button @click.prevent='login' class="btn btn-success btn-lg btn-block" type="button">Login</button>
@@ -43,7 +43,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(user => {
         	alert("you are login")
-          this.$router.push("home");
+          this.$router.replace("home");
 
         })
         .catch(error => {
