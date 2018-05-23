@@ -10,7 +10,7 @@
 				<div class="tab-pane active" id="sign_up">
 					<form class="form-horizontal login-form">
 						<div class="form-group relative">
-							<input required v-model='email' class="form-control input-lg" id="register_email" placeholder="E-mail Address"  type="email"> <i class="fa fa-user"></i>
+							<input required v-model='email' class="form-control input-lg" id="register_email" placeholder="E-mail"  type="email"> <i class="fa fa-user"></i>
 						</div>
 						<div class="form-group relative">
 							<input required v-model='password' class="form-control input-lg" id="register_password" placeholder="Password" type="password"> <i class="fa fa-lock"></i>

@@ -1,32 +1,16 @@
 <template>
-	<nav class="navbar navbar-expand-sm navbar-custom">
-    <a href="/" class="navbar-brand">Mis Series</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCustom">
-        <i class="fa fa-bars fa-lg py-1 text-white"></i>
-    </button>
-    <div class="navbar-collapse collapse" id="navbarCustom">
-        <ul class="col-9 navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Ultimas Noticias</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-sm navbar-custom">
+        <a href="/" class="navbar-brand">Home</a>
         <router-link :to="{name: 'loginLink'}" class="ml-2 navbar-text"><span>Login</span></router-link>
         <router-link :to="{name: 'registerLink'}" class="ml-2 navbar-text"><span>Registrate</span></router-link>
-        <button type="button"class="btn btn-outline-dark ml-2">Log Out</button>
-    </div>
+        <button @click="logout" type="button"class="btn btn-outline-dark ml-2">Log Out</button>
+        </div>
 </nav>
 </template>
 
-<!-- <script>
+<script>
     import Firebase from 'firebase'
     export default {
-        name: 'navbar',
         data(){
             return {
                 isLoggedIn: false,
@@ -35,13 +19,13 @@
         },
         methods: {
             logout: function(){
-                firebase.auth()signOut().then(()=> {
+                Firebase.auth().signOut().then(()=> {
                     this.$router.push('/login')
                 })
             }
         }
     }
-</script> -->
+</script>
 
 <style>
 	.navbar-custom {

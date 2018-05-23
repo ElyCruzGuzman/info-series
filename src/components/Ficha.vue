@@ -1,30 +1,52 @@
 <template>
-  <div class="container-fluid" id="featuredImage" >
+  <div class="container-fluid pr-0" id="featuredImage" >
    	<img class="img-background img-fluid" :src='imagenBackdrop' alt="">
    	<div class="row serie-header">
-   		<div class="col-3">
+   		<div class="col-2 pr-0">
    			<div class="card-group pt-2 pl-4 pb-2">
 	      	<div class="card">
 	       		<img :src='imagenPoster' alt="">
-	        	<div class="card-body">
-	          	<h5 class="card-title text-center">{{serie.name}}</h5>
-	        	</div>
 	        	<div>
-	        		<button @click="agregarSerie" type="button" class="btn btn-outline-secondary col-12">Seguir</button>
-	        		<button type="button" class="btn btn-outline-secondary col-12">Dejar de seguir</button>
+	        		<button @click="agregarSerie" type="button" class="btn btn-outline-secondary col-sm-12">Seguir</button>
+	        		<button @click="borrarSerie" type="button" class="btn btn-outline-secondary col-sm-12">Dejar de seguir</button>
 	        	</div>
 	      	</div>  
    			</div>
    		</div>
    		
-   		<div class="titulo col-6">
-     			<h1> <span class="title">{{serie.name}}</span></h1>
-     		</div>
+   		<div class="titulo col-7 pl-0">
+     			<h1 class="serie-tit"><span class="title">{{serie.name}}</span></h1>
+     	</div>
 				
-				<div class="rating col-3">
-     			<h1 class="val-rating">{{serie.rating}}</h1>
-     		</div>
-   	</div>
+			<div class="rating col-3">
+   			<h1 class='value-rat'><span class="val-rating">{{serie.rating}}</span></h1>
+   		</div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row info">
+        <nav class="col-12 pl-0 pr-0 justify-content-center">
+          <div class="nav nav-tabs text-align-center" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active col-6 text-center" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Información</a>
+            <a class="nav-item nav-link col-6 text-center" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Capítulos</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <h3>Descripción</h3>
+            <p>{{serie.plot}}</p></div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <!-- <a :href="{{season.seasonNum}}" v-for="season in serie.seasons">T {{season.seasonNum}}</a> -->
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist" v-for="season in serie.seasons">
+                <h5><strong>Temporada {{season.seasonNum}}</strong></h5> 
+                <p class="col-2" v-for="episode in season.episodes">{{episode.episodeNum}}.  {{episode.name}}</p>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div> 
   </div> 
 </template>
 
@@ -64,16 +86,26 @@
   methods: {
     agregarSerie: function(serie){
       db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).set(true)
+      console.log(this.id);
+      // (errorObject) => {
+      //   alert('Necesitas iniciar la sesión para administrar series');
+      // };
+    },
+    borrarSerie: function(serie){
+      db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).remove()
       console.log(this.id)
     }
   }
-};
-
+}
 </script>
 
 <style>
-	.card-group {
-		
+  .serie-tit {
+    padding-top: 15px;
+  }
+	.value-rat {
+		text-align: right;
+    padding-top: 15px;
 	}
 	.img-background {
 		z-index: 0;
@@ -99,4 +131,41 @@
     top: 80px;
     left: 38px;
 	}
+  img {
+    height: 100%;
+  }
+  .info {
+    color: white;
+    background-color: #000000b8;
+  }
+  .nav-item {
+    font-size: 25px;
+  }
+  .nav-tabs .nav-link.active {
+    color: #ca3201;
+  }
+  a {
+    color: yellow;
+  }
+  a:hover {
+    color: orange;
+  }
+  h5 {
+    width: 100%;
+    font-size: 22px;
+    text-align: center;
+    color: #ef6c20;
+    background-color: white;;
+  }
+  h3 {
+    text-decoration: underline;
+    padding-left: 15px;
+    padding-top: 15px;
+  }
+  p {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 </style>

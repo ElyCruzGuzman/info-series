@@ -10,7 +10,7 @@
 				<div class="tab-pane active" id="login">
 					<form class="form-horizontal login-form">
 						<div class="form-group relative">
-							<input v-model='email' class="form-control input-lg" id="login_username" placeholder="E-mail Address" required type="email"> <i class="fa fa-user"></i>
+							<input v-model='email' class="form-control input-lg" id="login_username" placeholder="E-mail" required type="email"> <i class="fa fa-user"></i>
 						</div>
 						<div class="form-group relative">
 							<input class="form-control input-lg" id="login_password" placeholder="Password" required type="password" v-model='password'> <i class="fa fa-lock"></i>
@@ -43,7 +43,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(user => {
         	alert("you are login")
-          this.$router.replace("register");
+          this.$router.push("home");
 
         })
         .catch(error => {
