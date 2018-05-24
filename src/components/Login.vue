@@ -42,12 +42,13 @@ export default {
       auth
         .signInWithEmailAndPassword(this.email, this.password)
         .then(user => {
-        	alert("you are login")
-          this.$router.replace("home");
+        	// alert("you are login")
+          this.$router.go({path: this.$router.replace("/")});
 
         })
         .catch(error => {
           this.errorMsg = error.message;
+          alert(error)
         });
         
     }

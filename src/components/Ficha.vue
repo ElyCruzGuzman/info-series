@@ -7,8 +7,8 @@
 	      	<div class="card">
 	       		<img :src='imagenPoster' alt="">
 	        	<div>
-	        		<button @click="agregarSerie" type="button" class="btn btn-outline-secondary col-sm-12">Seguir</button>
-	        		<button @click="borrarSerie" type="button" class="btn btn-outline-secondary col-sm-12">Dejar de seguir</button>
+	        		<button @click="agregarSerie" type="button" class="btn btn-secondary col-sm-12">Seguir</button>
+	        		<button @click="borrarSerie" type="button" class="btn btn-secondary col-sm-12">Dejar de seguir</button>
 	        	</div>
 	      	</div>  
    			</div>
@@ -27,19 +27,19 @@
       <div class="row info">
         <nav class="col-12 pl-0 pr-0 justify-content-center">
           <div class="nav nav-tabs text-align-center" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active col-6 text-center" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Información</a>
-            <a class="nav-item nav-link col-6 text-center" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Capítulos</a>
+            <a class="nav-item nav-link active col-6 text-center" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Información</a>
+            <a class="nav-item nav-link col-6 text-center" id="nav-chapter-tab" data-toggle="tab" href="#nav-chapter" role="tab" aria-controls="nav-chapter" aria-selected="false">Capítulos</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
             <h3>Descripción</h3>
             <p>{{serie.plot}}</p></div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="tab-pane fade" id="nav-chapter" role="tabpanel" aria-labelledby="nav-chapter-tab">
             <!-- <a :href="{{season.seasonNum}}" v-for="season in serie.seasons">T {{season.seasonNum}}</a> -->
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist" v-for="season in serie.seasons">
-                <h5><strong>Temporada {{season.seasonNum}}</strong></h5> 
+                <h5 class="season"><strong>Temporada {{season.seasonNum}}</strong></h5> 
                 <p class="col-2" v-for="episode in season.episodes">{{episode.episodeNum}}.  {{episode.name}}</p>
               </div>
             </nav>
@@ -87,15 +87,20 @@
     agregarSerie: function(serie){
       if(auth.currentUser){
         db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).set(true)
-      console.log(this.id)
+        alert('Ahora sigues esta serie')
     } else {
       alert('Necesitas iniciar la sesión para administrar series')
     }
       
     },
     borrarSerie: function(serie){
-      db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).remove()
-      console.log(this.id)
+      if(auth.currentUser){
+        db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).remove()
+        alert('Has dejado de seguir esta serie')
+      } else {
+      alert('Necesitas iniciar la sesión para administrar series')
+    }
+      
       // .catch(error => {
       //   alert('Necesitas iniciar la sesión para administrar series')
       // })
@@ -143,7 +148,10 @@
     color: white;
     background-color: #000000b8;
   }
-  .nav-item {
+  #nav-info-tab {
+    font-size: 25px;
+  }
+  #nav-chapter-tab {
     font-size: 25px;
   }
   .nav-tabs .nav-link.active {
@@ -155,7 +163,7 @@
   a:hover {
     color: orange;
   }
-  h5 {
+  .season {
     width: 100%;
     font-size: 22px;
     text-align: center;

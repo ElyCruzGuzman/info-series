@@ -1,4 +1,4 @@
-export var token = '7c4b62e75264c992be12a923a1ead5e3'
+export var token = 'c74bbe1c1858c3d244984771d3c04740'
 // import { db } from "./firebase.js"
 
 //var token2

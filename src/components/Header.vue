@@ -16,9 +16,9 @@
                 <li class="nav-item" v-if="isLoggedIn">
                   <router-link :to="{name: 'misSeriesLink'}" class="ml-2 navbar-text nav-item"><span>Mis Series</span></router-link>  
                 </li>
-                <li v-if="isLoggedIn"><span class="email black-text">{{currentUser}}</span></li>
+                <li v-if="isLoggedIn"><span class="ml-2 navbar-text nav-item email">{{currentUser}}</span></li>
                 <li class="nav-item">
-                  <button v-if="isLoggedIn" @click="logout" type="button"class="btn btn-outline-dark ml-2 nav-item">Log Out</button>  
+                  <button v-if="isLoggedIn" @click="logout" type="button"class="btn btn-outline-dark ml-2 nav-item">Cerrar Sesión</button>  
                 </li>
             </ul>
         </div>
@@ -43,7 +43,7 @@
         methods: {
             logout: function(){
                 Firebase.auth().signOut().then(()=> {
-                    this.$router.push('/login')
+                    this.$router.go({path: this.$router.path})
                 })
             }
         }
@@ -86,5 +86,8 @@
       }
     i {
         font-size: 30px;
+    }
+    .email {
+        color: black !important;
     }
 </style>
