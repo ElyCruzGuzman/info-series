@@ -1,6 +1,6 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
+  <div class="container">
+    <div v-if="anySeries" class="row">
       <div class="card-group pt-2 pb-2 col-md-2" v-for="item in seriesList">
         <div class="card">
           <router-link :to= "{name: 'fichaLink', params: {id: item.idm}}"><img :src='item.artwork.posters.small' alt=""></router-link>
@@ -10,11 +10,16 @@
         </div>  
       </div>
     </div>
+    <div v-else class="row">
+      <div class="emptySeries col-12">
+        <h1 class="tituloEmpty text-center pt-5"><strong>No sigues ninguna serie</strong></h1>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
- import {token} from '../token.js'
+ import { token, cors } from '../token.js'
  import { auth } from "../firebase.js";
  import { db } from "../firebase.js";
 
@@ -26,13 +31,19 @@
     };
   },
 
+  computed: {
+    anySeries: function() {
+      return (this.seriesList.length > 0)
+    }
+  },
+
   created: function() {
     // traerse las series de la bd
       db.ref('users/' + auth.currentUser.uid + '/series').on("value", (snapshot) => {
         //console.log(snapshot.val());
         let misSeries = snapshot.val();
          for (var serie in misSeries){
-         var urlFicha = 'https://cors-anywhere.herokuapp.com/http://api.tviso.com/v2/media/full_info?auth_token=' + token + '&mediaType=1&idm=' + serie;
+         var urlFicha = cors +'https://api.tviso.com/v2/media/full_info?auth_token=' + token + '&mediaType=1&idm=' + serie;
          
           $.getJSON(
             urlFicha,
@@ -58,5 +69,12 @@
 <style>
   img {
     width: 100%;
+  }
+  .emptySeries {
+    height: 577px;
+  }
+  .tituloEmpty {
+    color: white;
+    text-shadow: 2px 2px black;
   }
 </style>

@@ -51,7 +51,7 @@
 </template>
 
 <script>
-  import {token} from '../token.js'
+  import { token, cors } from '../token.js'
   import { auth } from "../firebase.js";
   import { db } from "../firebase.js";
 
@@ -68,7 +68,7 @@
   },
 
   created: function() {
-  	var urlFicha = 'https://cors-anywhere.herokuapp.com/http://api.tviso.com/v2/media/full_info?auth_token=' + token + '&mediaType=1&idm=' + this.id;
+  	var urlFicha = cors + 'https://api.tviso.com/v2/media/full_info?auth_token=' + token + '&mediaType=1&idm=' + this.id;
     $.getJSON(
       urlFicha,
      
@@ -112,10 +112,12 @@
 <style>
   .serie-tit {
     padding-top: 15px;
+    text-shadow: 2px 2px black;
   }
 	.value-rat {
 		text-align: right;
     padding-top: 15px;
+    text-shadow: 2px 2px black;
 	}
 	.img-background {
 		z-index: 0;

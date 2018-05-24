@@ -1,4 +1,6 @@
 export var token = 'c74bbe1c1858c3d244984771d3c04740'
+
+export var cors = 'https://cors-anywhere.herokuapp.com/'
 // import { db } from "./firebase.js"
 
 //var token2

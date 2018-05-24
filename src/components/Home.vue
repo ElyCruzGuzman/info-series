@@ -14,9 +14,9 @@
 </template>
 
 <script>
-  import {token} from '../token.js'
+  import {token, cors} from '../token.js'
 
-  var urlMostViewed = 'https://cors-anywhere.herokuapp.com/http://api.tviso.com/v2/media/browse?auth_token=' + token + '&mediaType=1&order=most_viewed'
+  var urlMostViewed = cors + 'https://api.tviso.com/v2/media/browse?auth_token=' + token + '&mediaType=1&order=most_viewed'
 
   export default {
 
