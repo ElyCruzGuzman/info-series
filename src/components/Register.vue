@@ -28,36 +28,36 @@
 </template>
 
 <script>
-import { auth } from "../firebase.js";
-import { db } from "../firebase.js";
+	import { auth } from "../firebase.js";
+	import { db } from "../firebase.js";
 
-export default {
-    data(){
-        return{
-            email: "",
-            password:""
-        }
-    },
-    methods:{
-        register(){
-            auth.createUserWithEmailAndPassword(this.email, this.password)
-              .then(() => {
-              	var userId = auth.currentUser.uid;
+	export default {
+	  data(){
+	      return{
+	          email: "",
+	          password:""
+	      }
+	  },
+	  methods:{
+      register(){
+        auth.createUserWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+        	var userId = auth.currentUser.uid;
 
-              	db.ref('users/' + userId).set({
-							    email: this.email
-							  });
+        	db.ref('users/' + userId).set({
+				    email: this.email
+				  });
 
-              	this.$router.replace("login");
-              })
-            .catch(function(error) {
-            // Handle Errors here.
-            let errorCode = error.code;
-            let errorMessage = error.message;
-					});
-        }
-    	}
-}
+        	this.$router.replace("login");
+        })
+        .catch(function(error) {
+        // Handle Errors here.
+        let errorCode = error.code;
+        let errorMessage = error.message;
+				});
+      }
+  	}
+	}
 </script>
 
 <style>
@@ -78,11 +78,9 @@ export default {
 	label {
 	  margin-bottom: 0;
 	}
-
 	a {
 	  color: #e1e1e1;
 	}
-
 	a:focus,
 	a:hover {
 	  color: #008080;
@@ -140,7 +138,6 @@ export default {
 	  color:#ccc;
 	  text-decoration:none;
 	}
-
 	.login-container-wrapper li a:active,
 	.login-container-wrapper li a:focus{
 	  color:#fff;
@@ -154,7 +151,6 @@ export default {
 	  border-bottom:2px solid #fff;
 	  padding-bottom:5px;
 	}
-
 	.login input:focus + .fa{
 	  color:#25a08d;
 	}
@@ -162,7 +158,6 @@ export default {
 	  margin-right: 0;
 	  margin-left: 0;
 	}
-
 	.login-form i {
 	  position: absolute;
 	  top: 0;
@@ -172,14 +167,12 @@ export default {
 	  z-index:100;
 	  font-size:16px;
 	}
-
 	.login-form .input-lg {
 	  font-size: 16px;
 	  height: 52px;
 	  padding: 10px 25px;
 	  border-radius: 0;
 	}
-
 	.login input[type="email"],
 	.login input[type="password"],
 	.login input:focus {
@@ -189,11 +182,9 @@ export default {
 	  border-left: 45px solid #93a5ab;
 	  border-radius:40px;
 	}
-
 	.login input:focus {
 	  border-left: 45px solid #eee;
 	}
-
 	input:-webkit-autofill,
 	textarea:-webkit-autofill,
 	select:-webkit-autofill {
@@ -202,7 +193,6 @@ export default {
 	  color: rgb(0, 0, 0);
 	  border-color: #FAFFBD;
 	}
-
 	.login .checkbox label,
 	.login .checkbox a {
 	  color: #ddd;
@@ -219,7 +209,6 @@ export default {
 	  -moz-transition: all ease 0.8s;
 	  transition: all ease 0.8s;
 	}
-
 	.btn-success:focus,
 	.btn-success:hover,
 	.btn-success.active,

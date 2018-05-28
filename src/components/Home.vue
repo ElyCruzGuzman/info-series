@@ -19,33 +19,26 @@
   var urlMostViewed = cors + 'https://api.tviso.com/v2/media/browse?auth_token=' + token + '&mediaType=1&order=most_viewed'
 
   export default {
+    data() {
+      return {
+        list: []
+      }
+    },
 
-  data() {
-    return {
-      list: []
-    };
-  },
-
-  created: function() {
-    $.getJSON(
-      urlMostViewed,
-      function(response) {
-       
-        this.list = response.results.medias;
-         console.log(this.list)
-      }.bind(this)
-    );
+    created: function() {
+      $.getJSON(
+        urlMostViewed,
+        function(response) {
+          this.list = response.results.medias;
+           console.log(this.list)
+        }.bind(this)
+      )
+    }
   }
-  
-};
 </script>
 
 <style>
-  .card-group {
-    
-  }
   .card {
-
     border: none;
   }
   img {

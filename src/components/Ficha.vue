@@ -34,9 +34,9 @@
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
             <h3>Descripción</h3>
-            <p>{{serie.plot}}</p></div>
+            <p>{{serie.plot}}</p>
+          </div>
           <div class="tab-pane fade" id="nav-chapter" role="tabpanel" aria-labelledby="nav-chapter-tab">
-            <!-- <a :href="{{season.seasonNum}}" v-for="season in serie.seasons">T {{season.seasonNum}}</a> -->
             <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist" v-for="season in serie.seasons">
                 <h5 class="season"><strong>Temporada {{season.seasonNum}}</strong></h5> 
@@ -56,57 +56,51 @@
   import { db } from "../firebase.js";
 
   const usersRef = db.ref('users');
+  const follow = "Ahora sigues esta serie"
+  const unfollow = "Has dejado de seguir esta serie"
 
   export default {
 
-  data() {
-    return {
-      serie: {},
-      imagenPoster: '',
-      imagenBackdrop: ''
-    };
-  },
-
-  created: function() {
-  	var urlFicha = cors + 'https://api.tviso.com/v2/media/full_info?auth_token=' + token + '&mediaType=1&idm=' + this.id;
-    $.getJSON(
-      urlFicha,
-     
-      function(response) {
-       
-        this.serie = response;
-        this.imagenPoster = "https://img.tviso.com/ES/poster/w200" + this.serie.images.poster;
-        this.imagenBackdrop = this.serie.artwork.backdrops.large;
-         console.log(this.serie)
-      }.bind(this)
-    );
-
-  },
-  props: ['id'],
-  methods: {  
-    agregarSerie: function(serie){
-      if(auth.currentUser){
-        db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).set(true)
-        alert('Ahora sigues esta serie')
-    } else {
-      alert('Necesitas iniciar la sesión para administrar series')
-    }
-      
+    data() {
+      return {
+        serie: {},
+        imagenPoster: '',
+        imagenBackdrop: ''
+      };
     },
-    borrarSerie: function(serie){
-      if(auth.currentUser){
-        db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).remove()
-        alert('Has dejado de seguir esta serie')
-      } else {
-      alert('Necesitas iniciar la sesión para administrar series')
-    }
-      
-      // .catch(error => {
-      //   alert('Necesitas iniciar la sesión para administrar series')
-      // })
+
+    created: function() {
+    	var urlFicha = cors + 'https://api.tviso.com/v2/media/full_info?auth_token=' + token + '&mediaType=1&idm=' + this.id;
+      $.getJSON(
+        urlFicha,
+        function(response) {
+          this.serie = response;
+          this.imagenPoster = "https://img.tviso.com/ES/poster/w200" + this.serie.images.poster;
+          this.imagenBackdrop = this.serie.artwork.backdrops.large;
+           console.log(this.serie)
+        }.bind(this)
+      )
+    },
+    props: ['id'],
+    methods: {  
+      agregarSerie: function(serie){
+        if(auth.currentUser){
+          db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).set(true)
+          alert(follow)
+        } else {
+        this.$router.push("/login")
+        }  
+      },
+      borrarSerie: function(serie){
+        if(auth.currentUser){
+          db.ref('users/' + auth.currentUser.uid + '/series').child(this.id).remove()
+          alert(unfollow)
+        } else {
+        this.$router.push("/login")
+        }
+      }
     }
   }
-}
 </script>
 
 <style>

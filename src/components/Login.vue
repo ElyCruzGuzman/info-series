@@ -27,33 +27,29 @@
 </template>
 
 <script>
-import { auth } from "../firebase";
+	import { auth } from "../firebase";
 
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-      errorMsg: ""
-    };
-  },
-  methods: {
-    login() {
-      auth
-        .signInWithEmailAndPassword(this.email, this.password)
+	export default {
+	  data() {
+	    return {
+	      email: "",
+	      password: "",
+	      errorMsg: ""
+	    }
+	  },
+	  methods: {
+	    login() {
+	      auth.signInWithEmailAndPassword(this.email, this.password)
         .then(user => {
-        	// alert("you are login")
-          this.$router.go({path: this.$router.replace("/")});
-
+          this.$router.go({path: this.$router.replace("/")})
         })
         .catch(error => {
           this.errorMsg = error.message;
           alert(error)
-        });
-        
-    }
-  }
-};
+        })
+	    }
+	  }
+	}
 </script>
 
 <style>
@@ -74,25 +70,16 @@ export default {
 	label {
 	  margin-bottom: 0;
 	}
-
 	a {
 	  color: #e1e1e1;
 	}
-
 	a:focus,
 	a:hover {
 	  color: #008080;
 	}
-
-	.checkbox-inline+.checkbox-inline,
-	.radio-inline+.radio-inline {
-	  margin-top: 6px;
-	}
-
 	body.login {
 	  background: rgba(255, 255, 255, 1);
 	}
-
 	.relative {
 	  position: relative;
 	}
@@ -155,7 +142,6 @@ export default {
 	  border-bottom:2px solid #fff;
 	  padding-bottom:5px;
 	}
-
 	.login input:focus + .fa{
 	  color:#25a08d;
 	}
@@ -163,7 +149,6 @@ export default {
 	  margin-right: 0;
 	  margin-left: 0;
 	}
-
 	.login-form i {
 	  position: absolute;
 	  top: 0;
@@ -173,14 +158,12 @@ export default {
 	  z-index:100;
 	  font-size:16px;
 	}
-
 	.login-form .input-lg {
 	  font-size: 16px;
 	  height: 52px;
 	  padding: 10px 25px;
 	  border-radius: 0;
 	}
-
 	.login input[type="email"],
 	.login input[type="password"],
 	.login input:focus {
@@ -190,11 +173,9 @@ export default {
 	  border-left: 45px solid #93a5ab;
 	  border-radius:40px;
 	}
-
 	.login input:focus {
 	  border-left: 45px solid #eee;
 	}
-
 	input:-webkit-autofill,
 	textarea:-webkit-autofill,
 	select:-webkit-autofill {
@@ -203,7 +184,6 @@ export default {
 	  color: rgb(0, 0, 0);
 	  border-color: #FAFFBD;
 	}
-
 	.login .checkbox label,
 	.login .checkbox a {
 	  color: #ddd;
@@ -224,7 +204,6 @@ export default {
 	  -moz-transition: all ease 0.8s;
 	  transition: all ease 0.8s;
 	}
-
 	.btn-success:focus,
 	.btn-success:hover,
 	.btn-success.active,
